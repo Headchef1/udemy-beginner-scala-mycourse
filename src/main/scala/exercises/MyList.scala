@@ -174,8 +174,9 @@ object ListTest extends App {
   val combinations = for {
     n <- listOfIntegers
     string <- listOfStrings
-  } yield n + "-" + string
+  }yield n + "-" + string
   println(combinations)
+
 
   def sort(list: MyList[Int]): MyList[Int] = {
     def insertSort(sortedList: MyList[Int], elem: Int, lessThanElement: MyList[Int] = Empty): MyList[Int] =
@@ -186,5 +187,7 @@ object ListTest extends App {
   }
 
   println(sort(Cons(4, Cons(2, Cons(5, Cons(1, Cons(3, Empty)))))))
+
+
 }
 
