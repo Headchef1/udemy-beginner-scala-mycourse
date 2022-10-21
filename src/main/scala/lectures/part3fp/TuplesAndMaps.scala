@@ -80,6 +80,7 @@ object TuplesAndMaps extends App {
   }
 
   def remove(network: Map[String, Set[String]], person: String): Map[String, Set[String]] = {
+    @tailrec
     def removeAux(friends: Set[String], networkAcc: Map[String, Set[String]]): Map[String, Set[String]] =
       if (friends.isEmpty) networkAcc
       else removeAux(friends.tail, unfriend(networkAcc, person, friends.head))
@@ -135,6 +136,5 @@ object TuplesAndMaps extends App {
 
   println(socialConnection(testNet, "Mary", "Jim"))
   println(socialConnection(network, "Mary", "Bob"))
-
 
 }
