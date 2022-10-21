@@ -130,7 +130,6 @@ object TuplesAndMaps extends App {
         else bfs(target, consideredPeople + person, discoveredPeople.tail ++ network(person))
       }
     }
-
     bfs(b, Set(), network(a) + a)
   }
 
