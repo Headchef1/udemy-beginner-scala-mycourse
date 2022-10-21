@@ -136,5 +136,4 @@ object TuplesAndMaps extends App {
 
   println(socialConnection(testNet, "Mary", "Jim"))
   println(socialConnection(network, "Mary", "Bob"))
-
 }
