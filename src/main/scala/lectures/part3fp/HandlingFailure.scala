@@ -61,18 +61,38 @@ object HandlingFailure extends App{
   object HttpService {
     val random = new Random(System.nanoTime())
 
-    def getConnection(host: String, port: String): Connection = {
+    def getConnection(host: String, port: String): Connection =
       if (random.nextBoolean()) new Connection
       else throw new RuntimeException("Someone else took the port")
 
     def getSafeConnection(host: String, port: String): Try[Connection] = Try(getConnection(host, port))
-    }
-
-    // if you get the html page from the connection, print it to the console i.e. call renderHTML
-
-    val possibleConnection = HttpService.getSafeConnection(host, port)
-    val possibleHTML = possibleConnection.flatMap(connection => connection.getSafe("/home"))
-    possibleHTML.foreach(renderHTML)
   }
 
+  // if you get the html page from the connection, print it to the console i.e. call renderHTML
+
+  val possibleConnection = HttpService.getSafeConnection(host, port)
+  val possibleHTML = possibleConnection.flatMap(connection => connection.getSafe("/home"))
+  possibleHTML.foreach(renderHTML)
+
+  // shorter version
+  HttpService.getSafeConnection(host, port)
+    .flatMap(connection => connection.getSafe("/home"))
+    .foreach(renderHTML)
+
+  // for-comprehension version
+  for{
+    connection <- HttpService.getSafeConnection(host, port)
+    html <- connection.getSafe("/home")
+  } renderHTML(html)
+  /*
+    try {
+      connection = HttpService.getConnection(host, post)
+      try{
+        page = connection.get("/home")
+        renderHTML(page)
+      } catch (some other exception) {
+
+      }
+    } catch (exception)
+  */
 }
